@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickBadge SVG Studio | صانع شارات الـ SVG الاحترافية</title>
+  <meta name="description" content="أداة تفاعلية لتوليد شارات SVG وشعارات المستودعات وملفات الـ Markdown بنقرة واحدة">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2308110c'/><rect x='15' y='35' width='70' height='30' rx='6' fill='%2310b981'/><text x='50' y='55' font-size='16' font-family='sans-serif' fill='white' text-anchor='middle' font-weight='bold'>SVG</text></svg>">
+</head>
+<body>
+  <div class="scanlines-overlay"></div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-icon">🏷️</div>
+        <div class="brand-text">
+          <h1>QuickBadge Studio <span class="badge">SVG & MD</span></h1>
+          <p class="tagline">مولد شارات وبطاقات الـ SVG المتجهة لمشاريع GitHub والويب</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="btn-lang" class="btn btn-outline">English</button>
+      </div>
+    </header>
+
+    <!-- Main Workspace Grid -->
+    <main class="studio-grid">
+      
+      <!-- Left Controls Panel -->
+      <section class="controls-card">
+        <h2>إعدادات وتخصيص الشارة</h2>
+        
+        <!-- Presets -->
+        <div class="control-group">
+          <label>نماذج وشارات جاهزة (Presets):</label>
+          <div class="preset-chips" id="preset-chips">
+            <button class="chip" data-label="Build" data-msg="Passing" data-color="#10b981">Build: Passing</button>
+            <button class="chip" data-label="Version" data-msg="v3.2.0" data-color="#06b6d4">Version: v3.2.0</button>
+            <button class="chip" data-label="License" data-msg="MIT" data-color="#f59e0b">License: MIT</button>
+            <button class="chip" data-label="Coverage" data-msg="98%" data-color="#34d399">Coverage: 98%</button>
+            <button class="chip" data-label="Status" data-msg="Active" data-color="#fb7185">Status: Active</button>
+          </div>
+        </div>
+
+        <!-- Texts -->
+        <div class="input-row">
+          <div class="control-group">
+            <label for="input-label">نص العنوان (Label):</label>
+            <input type="text" id="input-label" value="Digital Skills" placeholder="Label">
+          </div>
+          <div class="control-group">
+            <label for="input-msg">نص الرسالة (Message):</label>
+            <input type="text" id="input-msg" value="Certified" placeholder="Message">
+          </div>
+        </div>
+
+        <!-- Colors -->
+        <div class="input-row">
+          <div class="control-group">
+            <label for="color-left">لون الخلفية اليسرى:</label>
+            <div class="color-picker-wrap">
+              <input type="color" id="color-left" value="#1f2937">
+              <input type="text" id="hex-left" value="#1f2937" class="hex-input">
+            </div>
+          </div>
+          <div class="control-group">
+            <label for="color-right">لون الخلفية اليمنى:</label>
+            <div class="color-picker-wrap">
+              <input type="color" id="color-right" value="#10b981">
+              <input type="text" id="hex-right" value="#10b981" class="hex-input">
+            </div>
+          </div>
+        </div>
+
+        <!-- Style & Shape -->
+        <div class="input-row">
+          <div class="control-group">
+            <label for="select-style">نمط الشارة (Style):</label>
+            <select id="select-style">
+              <option value="flat">Flat (أنيق ومستدير)</option>
+              <option value="square">Flat-Square (زوايا حادة)</option>
+              <option value="pill">Pill (كبسولة دائرية)</option>
+              <option value="cyber">Cyber Glow (توهج زمردي)</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label for="select-icon">الأيقونة المرفقة:</label>
+            <select id="select-icon">
+              <option value="none">بدون أيقونة</option>
+              <option value="check">علامة صح (✓)</option>
+              <option value="star">نجمة (★)</option>
+              <option value="shield">درع حماية (🛡️)</option>
+              <option value="bolt">برق وسرعة (⚡)</option>
+              <option value="code">كود برمجي (&lt;/&gt;)</option>
+            </select>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Right Preview & Export Panel -->
+      <section class="preview-card">
+        <h2>المعاينة المباشرة (Live Preview)</h2>
+        <div class="badge-stage" id="badge-stage">
+          <!-- Rendered SVG will be placed here -->
+        </div>
+
+        <div class="export-actions">
+          <button id="btn-copy-md" class="btn btn-primary">📋 نسخ كود Markdown</button>
+          <button id="btn-copy-html" class="btn btn-outline">&lt;/&gt; نسخ كود HTML</button>
+          <button id="btn-download-svg" class="btn btn-outline">⬇ تحميل ملف SVG</button>
+        </div>
+
+        <!-- Code Snippet Box -->
+        <div class="code-box">
+          <div class="code-box-header">
+            <span>كود الـ Markdown المباشر:</span>
+            <span id="copied-badge" class="copied-msg">تم النسخ بنجاح!</span>
+          </div>
+          <textarea id="output-code" readonly rows="3"></textarea>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>QuickBadge SVG Studio &bull; تطوير <strong>أ. طارق ابوعشي</strong> &bull; توليد فوري للشارات بجودة المتجهات النواقل</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
